@@ -7,12 +7,13 @@ import { FormsModule } from "@angular/forms"; //// Ng module referencer
 import { AppComponent } from "./app.component";
 import { HelloComponent } from "./hello.component";
 import { HeroesComponent } from "./heroes/heroes.component";
+import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 /// references all the modules present in the app
 
 @NgModule({
   imports: [BrowserModule, FormsModule],
-  declarations: [AppComponent, HelloComponent, HeroesComponent],
+  declarations: [AppComponent, HelloComponent, HeroesComponent, HeroDetailComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {} /// wraps all the reference for further usage
