@@ -25,9 +25,15 @@ export class HeroesComponent implements OnInit {
     name: "Windstorm"
   };
 
-  getHeroes(): void {
-    this.heroes = this.heroService.getHeroes();
-  }
+//getHeroes(): void {
+//  this.heroes = this.heroService.getHeroes();
+//}
+
+
+getHeroes(): void {
+  this.heroService.getHeroes()
+      .subscribe(heroes => this.heroes = heroes);
+}
 
   constructor(private heroService: HeroService) {}
 
