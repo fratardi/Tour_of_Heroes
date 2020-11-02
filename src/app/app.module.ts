@@ -5,19 +5,20 @@ import { FormsModule } from "@angular/forms"; //// Ng module referencer
 ////// calls all components to be used in the export
 
 import { AppComponent } from "./app.component";
-import { HelloComponent } from "./hello.component";
+
 import { HeroesComponent } from "./heroes/heroes.component";
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
-import { HeroService } from './hero.service';
-import { MessagesComponent } from './messages/messages.component';
-import { MessageService } from './message.service';
 
+import { MessagesComponent } from './messages/messages.component';
+//import { HeroService } from './hero.service';
+//import { MessageService } from './message.service';
+//import { HelloComponent } from "./hello.component";
 /// references all the modules present in the app
 
 @NgModule({
   imports: [BrowserModule, FormsModule],
-  declarations: [AppComponent, HelloComponent, HeroesComponent, HeroDetailComponent, MessagesComponent],
+  declarations: [AppComponent, HeroesComponent, HeroDetailComponent, MessagesComponent],
   bootstrap: [AppComponent],
-  providers: [HeroService, MessageService]
+//  providers: [HeroService, MessageService]
 })
 export class AppModule {} /// wraps all the reference for further usage
