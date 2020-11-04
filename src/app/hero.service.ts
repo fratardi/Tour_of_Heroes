@@ -4,7 +4,7 @@ import { Hero } from "./hero";
 import { HEROES } from "./mock-heroes";
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class HeroService {
  
     getHeroes():  Observable<Hero[]> {
