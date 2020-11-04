@@ -27,7 +27,8 @@ export class HeroService {
   )
   {} //empty scope
 
-  getHero(id: number): Observable<Hero> {
+  getHero(id: number): Observable<Hero> 
+  {
     // TODO: send the message _after_ fetching the hero
     this.messageService.add(`HeroService: fetched hero id=${id}`);
     return of(HEROES.find(hero => hero.id === id));
@@ -41,8 +42,9 @@ private heroesUrl = 'api/heroes';  // URL to web api
 
 /** Log a HeroService message with the MessageService */
 
-private log(message: string) {
-  this.messageService.add(`HeroService: ${message}`);
-}
+  private log(message: string)
+  {
+   this.messageService.add(`HeroService: ${message}`);
+  }
 
 }
