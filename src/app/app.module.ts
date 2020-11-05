@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms"; //// Ng module referencer
 
+
+import { HttpClientModule } from '@angular/common/http';
 ////// calls all components to be used in the export
 
 import { AppComponent } from "./app.component";
@@ -14,8 +16,6 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 
 import { AppRoutingModule } from "./app-routing.module";
 
-
-import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
@@ -31,7 +31,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
   BrowserModule,
   FormsModule,
   HttpClientModule,
-  HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })],
+  HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
+  ],
   declarations: [
     AppComponent,
     HeroesComponent,

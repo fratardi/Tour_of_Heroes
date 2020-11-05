@@ -6,7 +6,7 @@ import { Hero } from "../hero"; /// Calls the structure of hero type
 // copy and  type for comment   /* * */
 
 import { HeroService } from "../hero.service";
-import { MessageService } from "../message.service";
+//import { MessageService } from "../message.service";
 
 @Component({
   selector: "app-heroes",
@@ -49,7 +49,7 @@ export class HeroesComponent implements OnInit {
 
   constructor(
     private heroService: HeroService,
-    private messageService: MessageService
+   // private messageService: MessageService
   ) {}
 
   ngOnInit() {

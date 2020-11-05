@@ -10,9 +10,11 @@ import { HeroService } from '../hero.service';
   templateUrl: './hero-detail.component.html',
   styleUrls: [ './hero-detail.component.css' ]
 })
-export class HeroDetailComponent implements OnInit {
-  hero: Hero;
 
+
+export class HeroDetailComponent implements OnInit {
+
+  hero: Hero;
 
 
   constructor(
@@ -22,26 +24,23 @@ export class HeroDetailComponent implements OnInit {
   ) {}
 
 
-
   save(): void {
   this.heroService.updateHero(this.hero)
     .subscribe(() => this.goBack());
 }
-
-  
-
-
 
 
   ngOnInit(): void {
     this.getHero();
   }
 
+
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.heroService.getHero(id)
       .subscribe(hero => this.hero = hero);
   }
+
 
   goBack(): void {
     this.location.back();

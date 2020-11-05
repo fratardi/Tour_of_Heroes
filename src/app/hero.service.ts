@@ -12,25 +12,21 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class HeroService {
   ///Handles http  failured operations
 
-  private handleError<T>(operation = "operation", result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {} //empty scope
 
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
+
+  
 
   httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" })
   };
 
-  /** GET: heroes matching th4e sting given */
 
+  /** GET: heroes matching th4e sting given */
   searchHeroes(term: string): Observable<Hero[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
@@ -46,8 +42,8 @@ export class HeroService {
     );
   }
 
-  /** POST: add a new hero to the server  Below */
 
+  /** POST: add a new hero to the server  Below */
   addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
       tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
@@ -55,6 +51,7 @@ export class HeroService {
     );
   }
 
+  
   /** DELETE: delete the hero from the server */
   deleteHero(hero: Hero | number): Observable<Hero> {
     const id = typeof hero === "number" ? hero : hero.id;
@@ -66,6 +63,7 @@ export class HeroService {
     );
   }
 
+  
   getHeroes(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl).pipe(
       tap(_ => this.log("fetched heroes")),
@@ -73,8 +71,8 @@ export class HeroService {
     );
   }
 
-  ///PUT "update hetroe on server"
 
+  ///PUT "update hetroe on server"
   updateHero(hero: Hero): Observable<any> {
     return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
       tap(_ => this.log(`updated hero id=${hero.id}`)),
@@ -82,11 +80,23 @@ export class HeroService {
     );
   }
 
-  constructor(
-    private http: HttpClient,
-    private messageService: MessageService
-  ) {} //empty scope
 
+  //case of no hero
+  getHeroNo404<Data>(id: number): Observable<Hero> {
+    const url = `${this.heroesUrl}/?id=${id}`;
+    return this.http.get<Hero[]>(url)
+      .pipe(
+        map(heroes => heroes[0]), // returns a {0|1} element array
+        tap(h => {
+          const outcome = h ? `fetched` : `did not find`;
+          this.log(`${outcome} hero id=${id}`);
+        }),
+        catchError(this.handleError<Hero>(`getHero id=${id}`))
+      );
+  }
+
+
+  /// method to find heroe 
   getHero(id: number): Observable<Hero> {
     const url = `${this.heroesUrl}/${id}`;
     return this.http.get<Hero>(url).pipe(
@@ -97,9 +107,25 @@ export class HeroService {
 
   private heroesUrl = "api/heroes"; // URL to web api
 
+
+private handleError<T>(operation = "operation", result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+
   /** Log a HeroService message with the MessageService */
 
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
   }
+
 }
